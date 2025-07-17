@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Malla Interactiva Enfermería</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8fafc;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .semestre {
+      margin-bottom: 2rem;
+    }
+    .ramos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .ramo {
+      background-color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .ramo.aprobado {
+      background-color: #94d3a2;
+      text-decoration: line-through;
+      color: #1e1e1e;
+    }
+  </style>
+</head>
+<body>
+  <h1>Malla Interactiva - Enfermería</h1>
+
+  <div class="semestre">
+    <h2>Ramos Generales</h2>
+    <div class="ramos">
+      <div class="ramo">Química</div>
+      <div class="ramo">Bioquímica</div>
+      <div class="ramo">Biología</div>
+      <div class="ramo">Bioestadística</div>
+      <div class="ramo">Microbiología</div>
+      <div class="ramo">Farmacología</div>
+      <div class="ramo">Socioantropología en Salud</div>
+      <div class="ramo">Psicología General</div>
+      <div class="ramo">Psicología Evolutiva</div>
+    </div>
+  </div>
+
+  <div class="semestre">
+    <h2>Formación Profesional</h2>
+    <div class="ramos">
+      <div class="ramo">Morfo Función I</div>
+      <div class="ramo">Morfo Función II</div>
+      <div class="ramo">Fisiología</div>
+      <div class="ramo">Fisiopatología</div>
+      <div class="ramo">Educación para la Salud y Primeros Auxilios</div>
+      <div class="ramo">Introducción a la Ciencia de la Enfermería</div>
+      <div class="ramo">Seguridad del cuidado</div>
+    </div>
+  </div>
+
+  <div class="semestre">
+    <h2>Cuidados y Ciclo Vital</h2>
+    <div class="ramos">
+      <div class="ramo">Ciclo Vital I</div>
+      <div class="ramo">Ciclo Vital II</div>
+      <div class="ramo">Cuidados de Enfermería en Niños/as y Adolescentes I</div>
+      <div class="ramo">Cuidados de Enfermería en Niños/as y Adolescentes II</div>
+      <div class="ramo">Cuidados de Enfermería en Niños/as con Necesidades Especiales</div>
+      <div class="ramo">Cuidados de Enfermería en Personas con Cáncer</div>
+      <div class="ramo">Cuidados de Enfermería en Personas Mayores I</div>
+      <div class="ramo">Cuidados de Enfermería en Personas Mayores II</div>
+    </div>
+  </div>
+
+  <div class="semestre">
+    <h2>Salud Pública y Comunidad</h2>
+    <div class="ramos">
+      <div class="ramo">Salud Pública y Epidemiología</div>
+      <div class="ramo">Enfermería en Comunidad I</div>
+      <div class="ramo">Enfermería en Comunidad II</div>
+      <div class="ramo">Gestión del cuidado</div>
+      <div class="ramo">Mejora continua del Cuidado</div>
+      <div class="ramo">Enfoque de Género en Salud</div>
+    </div>
+  </div>
+
+  <div class="semestre">
+    <h2>Urgencia y Cuidados Especiales</h2>
+    <div class="ramos">
+      <div class="ramo">Cuidados de Enfermería en Situaciones de Urgencia I</div>
+      <div class="ramo">Cuidados de Enfermería en Situaciones de Urgencia II</div>
+      <div class="ramo">Cuidados de Enfermería en el Adulto I</div>
+      <div class="ramo">Cuidados de Enfermería en el Adulto II</div>
+      <div class="ramo">Cuidados Familiar y Enfermería Domiciliaria</div>
+      <div class="ramo">Cuidados de Enfermería en Procesos de Fin de Vida</div>
+    </div>
+  </div>
+
+  <div class="semestre">
+    <h2>Formación Complementaria</h2>
+    <div class="ramos">
+      <div class="ramo">Bioética y Derecho Sanitario</div>
+      <div class="ramo">Diseño Metodológico y Pensamiento Crítico</div>
+      <div class="ramo">Seminario de Enfermería</div>
+      <div class="ramo">Internado I</div>
+      <div class="ramo">Internado II</div>
+      <div class="ramo">Examen de Título</div>
+      <div class="ramo">Curso de Formación General x6</div>
+      <div class="ramo">Optativo x2</div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'ramos_aprobados_enfermeria';
+
+    function guardarEstado() {
+      const aprobados = [];
+      document.querySelectorAll('.ramo.aprobado').forEach(el => {
+        aprobados.push(el.textContent);
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(aprobados));
+    }
+
+    function cargarEstado() {
+      const datos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      document.querySelectorAll('.ramo').forEach(el => {
+        if (datos.includes(el.textContent)) {
+          el.classList.add('aprobado');
+        }
+      });
+    }
+
+    document.querySelectorAll('.ramo').forEach(ramo => {
+      ramo.addEventListener('click', () => {
+        ramo.classList.toggle('aprobado');
+        guardarEstado();
+      });
+    });
+
+    cargarEstado();
+  </script>
+</body>
+</html>
